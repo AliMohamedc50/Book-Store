@@ -11,24 +11,40 @@ function App() {
     const [state, setState] = useState(
     [
       {
-      name: "castillo",
-      age: "20",
-      email: "castillo@gmail.com"},
-    {
-      name: "ali",
+        id : 1,
+        name: "castillo",
+        age: "20",
+        email: "castillo@gmail.com",
+        type:  "boy"
+      },
+      {
+      id : 2,
+      name: "nada",
       age: "80",
-      email: "ali@gmail.com"},
+      email: "ali@gmail.com",
+      type:  "girl"
+    },
     {
+      id : 3,
       name: "mohamed",
       age: "28",
-      email: "mohamed@gmail.com"}
+      email: "mohamed@gmail.com",
+      type:  "boy"
+    },
+    {
+      id : 4,
+      name: "sama",
+      age: "28",
+      email: "mohamed@gmail.com",
+      type:  "girl"
+    }
     ]
     )
  
-    const deleteFunc = (e, ele) =>{
+    const deleteFunc = (e, sellectedID) =>{
       // const deletele = state.filter((eleF, i) => i !== ele);
       setState((preveState) => {
-        return preveState.filter((eleF, i) => i !== ele);
+        return preveState.filter((eleF) => eleF.id !== sellectedID);
         
       });
     }
@@ -80,7 +96,7 @@ function App() {
           deleteFunc={deleteFunc}
           // filterName={filterName}
           border="rgb(225 29 72);"
-          background="rgb(15 118 110)"
+          // background="rgb(15 118 110)"
         />
       </div>
     </div>
