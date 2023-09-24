@@ -2,6 +2,7 @@ import Card from "./Components/Card"
 import './App.css'
 import { useRef, useState } from "react";
 import Filter from "./Components/Filter";
+
 function App() {
   // eslint-disable-next-line no-unused-vars 
     const inoutEle = useRef ()
@@ -92,9 +93,7 @@ function App() {
         <Card
           card={filterHandler()}
           deleteFunc={deleteFunc}
-          // filterName={filterName}
           border="rgb(225 29 72);"
-          // background="rgb(15 118 110)"
         />
       </div>
     </div>

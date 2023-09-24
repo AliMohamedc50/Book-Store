@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-// import Popup from "./Popup/Popup";
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
-const Card = ({ card, border, deleteFunc, setPop }) => {
+const Card = ({ card, deleteFunc }) => {
   return (
     // eslint-disable-next-line react/jsx-no-comment-textnodes
     <div>
@@ -18,7 +17,6 @@ const Card = ({ card, border, deleteFunc, setPop }) => {
             className="rounded-lg drop-shadow-lg w-80  m-auto mt-5 p-5 relative text-white"
             // eslint-disable-next-line react/jsx-no-duplicate-props
             style={{
-              borderColor: border,
               background: type === "boy" ? bgBoy : bgGirl,
             }}
           >
@@ -28,7 +26,6 @@ const Card = ({ card, border, deleteFunc, setPop }) => {
             <span
               onClick={(e) => {
                 deleteFunc(e, id);
-                setPop(true);
               }}
               className="absolute right-2 top-2 w-7 h-7 rounded-full fw-bold bg-slate-950 flex justify-center items-start cursor-pointer"
             >
