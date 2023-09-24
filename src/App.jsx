@@ -2,10 +2,9 @@ import Card from "./Components/Card"
 import './App.css'
 import { useRef, useState } from "react";
 import Filter from "./Components/Filter";
-
 function App() {
   // eslint-disable-next-line no-unused-vars 
-  const inoutEle = useRef ()
+    const inoutEle = useRef ()
     const [cardToggle, setCardToggle] = useState(true);
     const [filterData , setFilterData] = useState(0)
     const [state, setState] = useState(
@@ -42,11 +41,10 @@ function App() {
     )
  
     const deleteFunc = (e, sellectedID) =>{
-      // const deletele = state.filter((eleF, i) => i !== ele);
-      setState((preveState) => {
-        return preveState.filter((eleF) => eleF.id !== sellectedID);
-        
-      });
+        setState((preveState) => {
+          return preveState.filter((eleF) => eleF.id !== sellectedID);
+          
+        });
     }
 
     // const wrightconsole = () => {
