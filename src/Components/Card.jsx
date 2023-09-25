@@ -1,39 +1,10 @@
-/* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import { Button } from "@mui/material";
 import React from "react";
 
-// eslint-disable-next-line react/prop-types, no-unused-vars
-const Card = ({ card, deleteFunc }) => {
+const Card = () => {
   return (
-    // eslint-disable-next-line react/jsx-no-comment-textnodes
-    <div>
-      {card.map(({ id, name, age, email, type }) => {
-        const bgBoy = "rgb(15 118 110)";
-        const bgGirl = "rgb(190 24 93)";
-        return (
-          // eslint-disable-next-line react/jsx-key
-          <div
-            key={id}
-            className="rounded-lg drop-shadow-lg w-80  m-auto mt-5 p-5 relative text-white"
-            // eslint-disable-next-line react/jsx-no-duplicate-props
-            style={{
-              background: type === "boy" ? bgBoy : bgGirl,
-            }}
-          >
-            <p>{name}</p>
-            <p>{age}</p>
-            <p>{email}</p>
-            <span
-              onClick={(e) => {
-                deleteFunc(e, id);
-              }}
-              className="absolute right-2 top-2 w-7 h-7 rounded-full fw-bold bg-slate-950 flex justify-center items-start cursor-pointer"
-            >
-              x
-            </span>
-          </div>
-        );
-      })}
+    <div> <Button variant="contained">Hello world</Button>;
     </div>
   );
 };
