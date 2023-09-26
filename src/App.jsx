@@ -1,40 +1,71 @@
+import { TextField } from "@mui/material";
+import axios from "axios";
 import "./App.css";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useState} from "react";
 
+
+// https://www.mediawiki.org/w/api.php
 function App() {
-
-  const datainp = useRef()
-  const [data, setData] = useState("")
-  const [phone, setPhone] = useState("")
+  const [tirm, setTirm] = useState("")
+  const [result, setResult] = useState([])
 
   useEffect(() => {
-    if (phone) {
-      console.log(phone)
+    const search = async () => {
+      // eslint-disable-next-line no-unused-vars
+      const respond = await axios.get("https://www.mediawiki.org/w/api.php", {
+        params: {
+          action: "query",
+          list: "search",
+          origin: "*",
+          format: "json",
+          srsearch: tirm 
+        }
+      });
+      setResult(respond.data.query.search);
     }
-  }, [phone]);
-  const printData = () => {
-    const newData = datainp.current.value
-    setData(newData);
-    console.log(data)
-  }
+    if(tirm) {
+      search();
+    }
+  })
+
+  const FeachResult = result.map((ele) => {
+    // eslint-disable-next-line react/jsx-key
+    return (
+      // eslint-disable-next-line react/jsx-key
+      <tr key={ele.pageid}>
+        {/* <td className="border">{ele.id}</td> */}
+        <td dangerouslySetInnerHTML={{ __html: ele.title }} />
+        <td dangerouslySetInnerHTML={{ __html: ele.snippet }} />
+        {/* <td className="border">{ele.title}</td> */}
+        {/* <td className="border">{ele.snippet}</td> */}
+      </tr>
+    );
+  })
+
+
+
   return (
     <Fragment>
-      <input
-        ref={datainp}
-        value={data}
-        onChange={printData}
-        placeholder="For test"
-        className="bg-green-300 placeholder:text-gray-700 px-4 py-2 mx-2 border border-gray-950 rounded-md"
-        type="text"
+      <TextField
+        onChange={(e) => {
+          setTirm(e.target.value);
+        }}
+        id="standard-basic"
+        label="Standard"
+        variant="standard"
       />
-      <input
-        onChange={(e) => setPhone(e.target.value)}
-        value={phone}
-        placeholder="For test"
-        className="bg-green-300 placeholder:text-gray-700 px-4 py-2 mx-2 border border-gray-950 rounded-md"
-        type="text"
-      />
-      <p>{data}</p>
+      <table className="border">
+        <thead className="border">
+          <tr>
+            {/* <td className="border">id</td> */}
+            <td className="border">Title</td>
+            <td className="border">desc</td>
+          </tr>
+        </thead>
+        <tbody>
+        {FeachResult}
+        </tbody>
+      </table>
     </Fragment>
   );
 }
