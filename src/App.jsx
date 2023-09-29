@@ -1,71 +1,62 @@
-import { TextField } from "@mui/material";
-import axios from "axios";
+/* eslint-disable no-unused-vars */
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import { Fragment, useEffect, useState} from "react";
+import { Fragment } from "react";
 
-
-// https://www.mediawiki.org/w/api.php
 function App() {
-  const [tirm, setTirm] = useState("")
-  const [result, setResult] = useState([])
+  const dispach = useDispatch();
 
-  useEffect(() => {
-    const search = async () => {
-      // eslint-disable-next-line no-unused-vars
-      const respond = await axios.get("https://www.mediawiki.org/w/api.php", {
-        params: {
-          action: "query",
-          list: "search",
-          origin: "*",
-          format: "json",
-          srsearch: tirm 
-        }
-      });
-      setResult(respond.data.query.search);
+  const handelAllStore = useSelector((state) => state )
+  
+  
+  
+  const counterOpration = (setType, setPayload) => {
+    dispach({ type: setType, payload: setPayload });
+  }
+    const toggleCounter = () => {
+      const action = { type: "toggleCounter" };
+      dispach(action);
     }
-    if(tirm) {
-      search();
-    }
-  })
+  
+  
+  // const increase = () => {
+  //   dispach({ type: "increase", payload: 5});
+  // };
+  // const decrease = () => {
+  //   dispach({ type: "decrease", payload: 3 });
+  // };
 
-  const FeachResult = result.map((ele) => {
-    // eslint-disable-next-line react/jsx-key
-    return (
-      // eslint-disable-next-line react/jsx-key
-      <tr key={ele.pageid}>
-        {/* <td className="border">{ele.id}</td> */}
-        <td dangerouslySetInnerHTML={{ __html: ele.title }} />
-        <td dangerouslySetInnerHTML={{ __html: ele.snippet }} />
-        {/* <td className="border">{ele.title}</td> */}
-        {/* <td className="border">{ele.snippet}</td> */}
-      </tr>
-    );
-  })
 
 
 
   return (
     <Fragment>
-      <TextField
-        onChange={(e) => {
-          setTirm(e.target.value);
-        }}
-        id="standard-basic"
-        label="Standard"
-        variant="standard"
-      />
-      <table className="border">
-        <thead className="border">
-          <tr>
-            {/* <td className="border">id</td> */}
-            <td className="border">Title</td>
-            <td className="border">desc</td>
-          </tr>
-        </thead>
-        <tbody>
-        {FeachResult}
-        </tbody>
-      </table>
+      {handelAllStore.showCount && (
+        <>
+          <div>
+            Contauner: <span id="counter">{handelAllStore.count}</span>
+          </div>
+          <button
+            onClick={() => counterOpration("increase", 5)}
+            className="bg-teal-500 text-white px-10 py-1 rounded-xl mx-1"
+          >
+            +
+          </button>
+          <button
+            onClick={() => counterOpration("decrease", 2)}
+            className="bg-teal-500 text-white px-10 py-1 rounded-xl mx-1"
+          >
+            -
+          </button>
+          <br />
+        </>
+      )}
+      <button
+        onClick={toggleCounter}
+        className="my-3 bg-teal-500 text-white px-5 py-1 rounded-xl mx-1"
+      >
+        Show/Hide Counter Numper
+      </button>
     </Fragment>
   );
 }
