@@ -1,21 +1,18 @@
 /* eslint-disable no-unused-vars */
-import { legacy_createStore } from "redux";
 
-const initState = { count: 0 , showCount: true};
-const coubterReducer = (state = initState, action) => {
-  if (action.type === "increase") {
-    return { ...state, count: state.count + action.payload };
-} 
-if (action.type === "decrease") {
-      return { ...state, count: state.count - action.payload };
-    // return state.count--;
-  }
-  if (action.type === "toggleCounter") {
-    return {...state, showCount : !state.showCount};
-  }
-  return state;
-};
+// CounterSlice
+import { configureStore } from "@reduxjs/toolkit"; 
+import CounterReducer from "./CounterSlice";
+import AuthReducer from "./AuthSlice";
 
-const store = legacy_createStore(coubterReducer);
+// AuthSlice
+
+
+
+const store = configureStore({
+  reducer: { counter: CounterReducer, auth: AuthReducer },
+});
+
+// export const counterAction = counterSlice.actions;
 
 export default store;
