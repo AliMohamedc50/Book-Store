@@ -18,13 +18,13 @@ function App() {
   
 
   
-  const test = useCallback(() => {
-    dispach(increase(5));
-  }, [dispach]);
-
+  const test =  useCallback( () => {
+  dispach(increase(10))
+    
+  }, [dispach] )
   useEffect(() => {
     test();
-  }, [test]);
+  }, []);
   
   // const counterOpration = (setType, setPayload) => {
   //   dispach({ type: setType, payload: setPayload });
