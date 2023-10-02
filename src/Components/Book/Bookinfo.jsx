@@ -1,19 +1,20 @@
-import React, { Fragment } from 'react';
+/* eslint-disable no-unused-vars */
+import React from 'react'
 
-const BookInfo = () => {
+function Bookinfo() {
   return (
-    <Fragment>
+    <div>
       <h2>Book Details</h2>
-      <div className='alert alert-secondary' role='alert'>
+      <div className="" role="alert">
         There is no post selected yet. Please select!
       </div>
-      {/* <div>
+      <div>
         <p className='fw-bold'>Title:</p>
         <p className='fw-light'>Description:</p>
         <p className='fst-italic'>Price:</p>
-      </div> */}
-    </Fragment>
+      </div>
+    </div>
   );
-};
+}
 
-export default BookInfo;
+export default Bookinfo
