@@ -2,3 +2,8 @@
   padding: 0;
   margin: 0;
 }
+
+.holdContainer {
+  margin: auto;
+  width: 800px;
+}

@@ -9,8 +9,10 @@ function App() {
   return (
     <Fragment>
       <Header />
+      <div className="holdContainer" >
       <AddForm />
       <Bookcontainer />
+      </div>
     </Fragment>
   );
 }
