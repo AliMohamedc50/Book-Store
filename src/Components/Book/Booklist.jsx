@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 
-function Booklist({ isLoading, booksL }) {
+function Booklist({ isLoading, booksL, isLigedIn, dispatch, deleteBook }) {
   // console.log(booksL);
 
   const bookList = booksL.length ? (
@@ -14,7 +14,22 @@ function Booklist({ isLoading, booksL }) {
         <div>{element.title}</div>
         <div className="text-white">
           <button className="bg-teal-500 px-2 py-1 rounded mx-1">Read</button>
-          <button className="bg-red-700 px-2 py-1 rounded mx-1">Delete</button>
+          <button
+            className="bg-red-700 px-2 py-1 rounded mx-1"
+            style={{ opacity: isLigedIn ? 0.5 : 1 }}
+            disabled={isLigedIn}
+            onClick={() => {dispatch(deleteBook(element))
+              .unwrap()
+              .then((originalPromiseResult) => {
+                console.log(originalPromiseResult)
+              })
+              .catch((rejectedValueOrSerializedError) => {
+                // handle error here
+                console.log(rejectedValueOrSerializedError)
+              }); }}
+          >
+            Delete
+          </button>
         </div>
       </div>
     ))

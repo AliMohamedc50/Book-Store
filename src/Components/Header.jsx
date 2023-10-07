@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { Fragment } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logInOut } from '../store/AuthSlice';
 
 function Header() {
-  const {errorApi } = useSelector((state) => state.books)
+  const dispache = useDispatch()
+
+  const { isLigedIn } = useSelector((state) => state.auth);
+  const { errorApi } = useSelector((state) => state.books)
     return (
       <Fragment>
         {errorApi && (
@@ -17,8 +21,9 @@ function Header() {
           <button
             className="bg-slate-600 p-2  hover:bg-slate-400 text-slate-50 rounded-md"
             type="submit"
+            onClick={() => dispache(logInOut())}
           >
-            Log In
+            {isLigedIn ? "Log In" : "Log Out"}
           </button>
         </nav>
       </Fragment>

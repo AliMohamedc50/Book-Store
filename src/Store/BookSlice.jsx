@@ -18,8 +18,11 @@ export const getBooks = createAsyncThunk("book/getBooks", async (_, thunkAPI) =>
 export const postbook = createAsyncThunk(
   'book/postbook',
   async (bookData, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
+
     try {
+      bookData.userName = getState().auth.name;
+        // console.log(getState().auth.name)
       const res = await fetch('http://localhost:3008/books', {
         method: 'POST',
         body: JSON.stringify(bookData),
@@ -36,44 +39,75 @@ export const postbook = createAsyncThunk(
 );
 
 
+export const deleteBook = createAsyncThunk(
+  "book/deleteBook",
+  async (element, thunkAPI) => {
+      const { rejectWithValue } = thunkAPI;
+      try {
+        // bookData.userName = getState().auth.name;
+        // console.log(getState().auth.name)
+        await fetch(`http://localhost:3008/books/${element.id}`, {
+          method: "DELETE",
+          // body: JSON.stringify(bookData),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+        });
+        return element;
+      } catch (error) {
+        return rejectWithValue(error.message);
+      }
+  }
+);
+
 
 const bookSlice = createSlice({
   // for get book list
-    name: "book",
-    initialState: { booksL: [], isLoading: false, errorApi: false },
-    extraReducers: {
+  name: "book",
+  initialState: { booksL: [], isLoading: false, errorApi: false },
+  extraReducers: {
     [getBooks.pending]: (state, action) => {
-        state.isLoading = true;
-        state.errorApi = false;
+      state.isLoading = true;
+      state.errorApi = false;
     },
     [getBooks.fulfilled]: (state, action) => {
-        state.isLoading = false;
-        state.booksL = action.payload;
+      state.isLoading = false;
+      state.booksL = action.payload;
     },
     [getBooks.rejected]: (state, action) => {
-        state.isLoading = false;
-        state.errorApi = true;
-        console.log(action);
+      state.isLoading = false;
+      state.errorApi = true;
+      console.log(action);
     },
 
-
-
-    
     // for post book
 
     [postbook.pending]: (state, action) => {
-            state.isLoading = true;
-            state.errorApi = false;
+      state.isLoading = true;
+      state.errorApi = false;
     },
     [postbook.fulfilled]: (state, action) => {
-        state.isLoading = false;
-        state.booksL.push(action.payload);
-
+      state.isLoading = false;
+      state.booksL.push(action.payload);
     },
     [postbook.rejected]: (state, action) => {
-        state.isLoading = false;
-        state.errorApi = true;
+      state.isLoading = false;
+      state.errorApi = true;
     },
+    
+    // for delete book
+    [deleteBook.pending] : (state, action) => {
+      state.isLoading = true;
+      state.errorApi = false;
+    },
+    [deleteBook.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.booksL = state.booksL.filter((ele) => ele.id !== action.payload.id)
+    },
+    [deleteBook.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.errorApi = true;
+    }
   },
 });
 

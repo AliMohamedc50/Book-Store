@@ -29,14 +29,14 @@ function AddForm() {
     return (
       <div onSubmit={handelSubmit}>
         <div className="m-auto w-96">
-          <h2 className="fw-bold fs-6">Insert Book</h2>
+          <h2 className="font-medium text-3xl">Insert Book</h2>
           <form>
-            <div className="flex flex-col	p-2">
+            <div className="flex flex-col p-2">
               <label htmlFor="title">Title</label>
               <input
                 ref={title}
                 type="text"
-                className="border-2 border-slate-700 "
+                className="border-2 border-slate-400 p-2"
                 id="title"
                 required
               />
@@ -46,7 +46,7 @@ function AddForm() {
               <input
                 ref={price}
                 type="number"
-                className="border-2 border-slate-700"
+                className="border-2 border-slate-400 p-2"
                 id="price"
                 required
               />
@@ -55,7 +55,7 @@ function AddForm() {
               <label htmlFor="Description">Description</label>
               <textarea
                 ref={description}
-                className="border-2 border-slate-700"
+                className="border-2 border-slate-400 p-2"
                 id="Description"
                 rows="3"
                 required
@@ -64,7 +64,8 @@ function AddForm() {
             <button
               type="submit"
               className="bg-slate-500 px-4 py-2 rounded-md"
-              disabled={!isLigedIn}
+              style={{ backgroundColor: isLigedIn ? "#1c4b47c2" : "#009688" }}
+              disabled={isLigedIn}
             >
               Submit
             </button>
