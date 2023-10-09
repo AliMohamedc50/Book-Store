@@ -1,18 +1,23 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-function Bookinfo() {
+function Bookinfo({readBook}) {
+  // console.log(readBook.id);
   return (
     <div>
       <h2 className="text-3xl font-medium">Book Details</h2>
-      <div className="" role="alert">
+      {!readBook.id ?
+   (   <div className="" role="alert">
         There is no post selected yet. Please select!
-      </div>
-      <div>
-        <p className="fw-bold">Title:</p>
-        <p className="fw-light">Description:</p>
-        <p className="fst-italic">Price:</p>
-      </div>
+      </div>) :
+     ( <div>
+        <p className="fw-bold">Title: {readBook.title}</p>
+        <p className="fw-light">Description: {readBook.description}</p>
+        <p className="fst-italic">Price: {readBook.price}</p>
+      </div>)
+      
+    }
     </div>
   );
 }

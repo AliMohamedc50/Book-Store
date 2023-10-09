@@ -19,11 +19,16 @@ function Header() {
         <nav className="bg-slate-800 w-full px-24 py-4 flex justify-between items-center">
           <span className="text-white text-3xl font-medium">My Books</span>
           <button
-            className="bg-slate-600 p-2  hover:bg-slate-400 text-slate-50 rounded-md"
+            className="relative bg-slate-600 p-2  hover:bg-slate-400 text-slate-50 rounded-md"
             type="submit"
             onClick={() => dispache(logInOut())}
           >
             {isLigedIn ? "Log In" : "Log Out"}
+            {isLigedIn &&
+              <span className="absolute -bottom-14 right-0 bg-neutral-700 w-40 rounded-lg ease-in duration-300  p-3">
+              don't forget Log in
+            </span>
+            }
           </button>
         </nav>
       </Fragment>

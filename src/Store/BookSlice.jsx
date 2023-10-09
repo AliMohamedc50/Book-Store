@@ -15,6 +15,8 @@ export const getBooks = createAsyncThunk("book/getBooks", async (_, thunkAPI) =>
 });
 
 
+
+
 export const postbook = createAsyncThunk(
   'book/postbook',
   async (bookData, thunkAPI) => {
@@ -59,12 +61,29 @@ export const deleteBook = createAsyncThunk(
       }
   }
 );
+export const getBook = createAsyncThunk("book/getBook", async (element, thunkAPI) => {
+  const { rejectWithValue } = thunkAPI;
+  try {
+    // bookData.userName = getState().auth.name;
+    // console.log(getState().auth.name)
+    await fetch(`http://localhost:3008/books/${element.id}`, {
+      method: "GET",
+      // body: JSON.stringify(bookData),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    });
+    return element;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
 
 
 const bookSlice = createSlice({
   // for get book list
   name: "book",
-  initialState: { booksL: [], isLoading: false, errorApi: false },
+  initialState: { booksL: [], isLoading: false, errorApi: false, readBook : []},
   extraReducers: {
     [getBooks.pending]: (state, action) => {
       state.isLoading = true;
@@ -105,6 +124,21 @@ const bookSlice = createSlice({
       state.booksL = state.booksL.filter((ele) => ele.id !== action.payload.id)
     },
     [deleteBook.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.errorApi = true;
+    },
+    
+    // for read datils 
+    [getBook.pending]: (state, action) => {
+        state.isLoading = true;
+    },
+    [getBook.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.readBook = action.payload
+      console.log(state.readBook);
+    },
+    [getBook.rejected]: (state, action) => {
+
       state.isLoading = false;
       state.errorApi = true;
     }
